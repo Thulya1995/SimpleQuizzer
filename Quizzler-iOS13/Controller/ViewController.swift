@@ -13,51 +13,39 @@ class ViewController: UIViewController {
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var trueButton: UIButton!
     @IBOutlet weak var falseButton: UIButton!
+    @IBOutlet weak var ScoreBoard: UILabel!
     
-    let quiz = [
-    Question(questionText: "National day in Sr Lnaka is 4th of February", answer: "True"),
-    Question(questionText: " Two + four is Seven", answer: "False"),
-    Question(questionText: "five is greater than ten", answer: "True")]
-    
-    var qNumber = 0
-    
+    var quizBrain = QuizBrain()
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
-
     }
 
     @IBAction func answerButtonPressed(_ sender: UIButton) {
-        let size = quiz.capacity
-        let answer = sender.currentTitle
+        let answer = sender.currentTitle!
+        let userGotItRight = quizBrain.checkAnswer(answer)
         
-        if answer == quiz[qNumber].answer {
+        
+        if userGotItRight == true{
             sender.backgroundColor = UIColor.green
-            
         }else {
             sender.backgroundColor = UIColor.red
-            
         }
         
-        if qNumber < size-1{
-            qNumber+=1
-        }else{
-            qNumber = 0
-        }
+        quizBrain.nextQuestion()
         updateUI()
-        progressBar.progress = Float(qNumber) / Float(size)
     }
     
     func updateUI(){
-        questionlabel.text = quiz[qNumber].questionText
+        questionlabel.text = quizBrain.getQuizText()
         Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (timer) in
         self.trueButton.backgroundColor = UIColor.clear
         self.falseButton.backgroundColor = UIColor.clear
-        self.progressBar.progress = Float(self.qNumber + 1) / Float(self.quiz.capacity)
+        self.ScoreBoard.text = "Score: \(self.quizBrain.getScore())"
+        self.progressBar.progress = self.quizBrain.self.getProgress()
+            
         }
     }
     
-    
 
 }
-
