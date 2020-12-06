@@ -3,7 +3,6 @@
 //  Quizzler-iOS13
 //
 //  Created by Thulya Palihapitiya on 12/6/20.
-//  Copyright © 2020 The App Brewery. All rights reserved.
 //
 
 import Foundation
