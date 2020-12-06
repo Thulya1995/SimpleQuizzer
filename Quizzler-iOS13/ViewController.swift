@@ -45,13 +45,15 @@ class ViewController: UIViewController {
             qNumber = 0
         }
         updateUI()
+        progressBar.progress = Float(qNumber) / Float(size)
     }
     
     func updateUI(){
         questionlabel.text = quiz[qNumber].questionText
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { (timer) in
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (timer) in
         self.trueButton.backgroundColor = UIColor.clear
         self.falseButton.backgroundColor = UIColor.clear
+        self.progressBar.progress = Float(self.qNumber + 1) / Float(self.quiz.capacity)
         }
     }
     
