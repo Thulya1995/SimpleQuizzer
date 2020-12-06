@@ -2,8 +2,7 @@
 //  ViewController.swift
 //  Quizzler-iOS13
 //
-//  Created by Angela Yu on 12/07/2019.
-//  Copyright © 2019 The App Brewery. All rights reserved.
+//  Created by Thulya Palihapitiya on 12/6/20.
 //
 
 import UIKit
@@ -15,7 +14,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var trueButton: UIButton!
     @IBOutlet weak var falseButton: UIButton!
     
-    let quiz = [["National day in Sr Lnaka is 4th of February","True"],[" Two + four is Seven","False"],["five is greater than ten","False"]]
+    let quiz = [
+    Question(questionText: "National day in Sr Lnaka is 4th of February", answer: "True"),
+    Question(questionText: " Two + four is Seven", answer: "False"),
+    Question(questionText: "five is greater than ten", answer: "True")]
+    
     var qNumber = 0
     
     override func viewDidLoad() {
@@ -28,10 +31,12 @@ class ViewController: UIViewController {
         let size = quiz.capacity
         let answer = sender.currentTitle
         
-        if answer == quiz[qNumber][1] {
-            print("Correct Answer")
+        if answer == quiz[qNumber].answer {
+            sender.backgroundColor = UIColor.green
+            
         }else {
-            print("Wrong Answer")
+            sender.backgroundColor = UIColor.red
+            
         }
         
         if qNumber < size-1{
@@ -43,8 +48,13 @@ class ViewController: UIViewController {
     }
     
     func updateUI(){
-        questionlabel.text = quiz[qNumber][0]
+        questionlabel.text = quiz[qNumber].questionText
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { (timer) in
+        self.trueButton.backgroundColor = UIColor.clear
+        self.falseButton.backgroundColor = UIColor.clear
+        }
     }
+    
     
 
 }
